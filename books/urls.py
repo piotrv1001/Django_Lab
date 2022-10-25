@@ -1,9 +1,10 @@
 from django.urls import path, include
-from .views import index, add, get, update
+from .views import delete, index, add, get, update
 
 urlpatterns = [
     path('', index, name="view_books"),
     path('add/', add, name="add"),
-    path('update/', update, name="update"),
+    path('update/<int:id>', update, name="update"),
+    path('delete/<int:id>', delete, name="delete"),
     path('<int:id>/', get, name='get'),
 ]

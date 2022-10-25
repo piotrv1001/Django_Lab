@@ -4,11 +4,16 @@
 {{ book.create_time }}<br>
 {{ book.last_edit_time }}<br> -->
 
-<form action="/books/update/" method="post">
+<form action="/books/update/{{ book.id }}" method="post">
     {% csrf_token %}
     <!-- {{ form.as_p  }} -->
     <input type="text" name="name" id="name" value="{{ book.name }}"><br><br>
     <input type="text" name="author" id="author" value="{{ book.author }}"><br><br>
     <input type="text" name="year" id="year" value="{{ book.year }}"><br><br>
     <input type="submit" value="UPDATE">
+</form>
+
+<form action="/books/delete/{{ book.id }}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="DELETE">
 </form>

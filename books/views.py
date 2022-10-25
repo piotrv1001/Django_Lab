@@ -50,7 +50,7 @@ def add(request):
         context = {'form': book}
         return render(request, 'books/add.html', context)
 
-
+@login_required(login_url='/login/')
 def get(request, id):
     # get_object_or_404 returns an item from the database
     # data with the given argument value
@@ -61,20 +61,20 @@ def get(request, id):
 
 
 @login_required(login_url='/login/')
-def update(request):
+def update(request, id):
 
     if request.method == 'POST':
 
-        updatedbook = BookForm(request.POST)
+        book = get_object_or_404(Book, id = id)
+        formBook = BookForm(request.POST, instance = book)
 
         # If the form - that is data sent from the POST request
         # are correct, we add an element to the database
-        if updatedbook.is_valid():
-            updatedbook = updatedbook.save(commit=False)
+        if formBook.is_valid():
+            formBook = formBook.save(commit=False)
             # news.author = request.user
-            updatedbook.create_time = timezone.now()
-            updatedbook.last_edit_time = timezone.now()
-            updatedbook.save()
+            formBook.last_edit_time = timezone.now()
+            formBook.save()
             return redirect('view_books')
         # If they are not correct, we send the form back to the client
         # The autmatic validator also creates error fields which are available after
@@ -88,3 +88,13 @@ def update(request):
         book = BookForm()
         context = {'form': book}
         return render(request, 'books/get.html', context)
+
+
+@login_required(login_url='/login/')
+def delete(request, id):
+
+        book = get_object_or_404(Book, id = id)
+
+        if request.method == 'POST':
+            book.delete()
+            return redirect('view_books')
