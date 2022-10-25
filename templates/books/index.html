@@ -1,0 +1,21 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+{% if books %}
+    <ul>
+    {% for b in books %}
+    {% if user.is_authenticated %}
+    <li><a href="/books/{{ b.id }}/">{{ b.name }}</a></li>
+    {% endif %}
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No books are available.</p>
+{% endif %}
+
+{% if user.is_authenticated %}
+<a href="/books/add/">Add books</a>
+{% endif %}
+
+{% endblock %}
