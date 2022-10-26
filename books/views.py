@@ -50,7 +50,7 @@ def add(request):
         context = {'form': book}
         return render(request, 'books/add.html', context)
 
-@login_required(login_url='/login/')
+# @login_required(login_url='/login/')
 def get(request, id):
     # get_object_or_404 returns an item from the database
     # data with the given argument value

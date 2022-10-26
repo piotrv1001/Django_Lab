@@ -5,11 +5,7 @@
 {% if books %}
     <ul>
     {% for b in books %}
-    {% if user.is_authenticated %}
     <li><a href="/books/{{ b.id }}/">{{ b.name }}</a></li>
-    {% else %}
-    <li>{{ b.name }}</li>
-    {% endif %}
     {% endfor %}
     </ul>
 {% else %}

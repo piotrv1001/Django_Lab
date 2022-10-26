@@ -1,9 +1,10 @@
-<!-- {{ book.name }}<br>
+{% if not user.is_authenticated %}
+{{ book.name }}<br>
 {{ book.author }}<br>
 {{ book.year }}<br>
 {{ book.create_time }}<br>
-{{ book.last_edit_time }}<br> -->
-
+{{ book.last_edit_time }}<br>
+{% else %}
 <form action="/books/update/{{ book.id }}" method="post">
     {% csrf_token %}
     <!-- {{ form.as_p  }} -->
@@ -17,3 +18,4 @@
     {% csrf_token %}
     <input type="submit" value="DELETE">
 </form>
+{% endif %}
